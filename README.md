@@ -1,4 +1,4 @@
-# soft-computing
+# Soft Computing
 Implementation of algorithms for soft computing. It consists of 
 1. Artificial Neural Networks
 2. Fuzzy logic

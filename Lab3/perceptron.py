@@ -1,12 +1,14 @@
-class Perceptron():
+class Perceptron:
 
-
-    def __init__(self, input_size, alpha=1, threshold = 0.2):
+    def __init__(self, input_file_path, alpha=1, threshold = 0.2):
         
         # Parse the input file
-        # input_size = self._load_file(input_file_path)
+        self.input_matrix = []
+        self.target_vector = []
 
-        self.weights = [0] * input_size
+        self._load_file(input_file_path)
+
+        self.weights = [0] * len(self.input_matrix[0])
         self.bias = 0
         self.alpha = alpha
         self.threshold = threshold
@@ -15,7 +17,34 @@ class Perceptron():
     def _load_file(self, input_file_path):
         
         f = open(input_file_path, 'r')
+        lines = f.readlines()
+        # print(lines)
+        num_ip = int(lines[0])
+        
+        i=1
+        for j in range(num_ip):
 
+            target = int(lines[i])
+            input_vector = []
+            for k in range(1,4):
+
+                for x in lines[i+k][:-1].split(' '):
+                    input_vector.append(self._pattern(x))
+            
+            i+=4
+
+            self.input_matrix.append(input_vector)
+            self.target_vector.append(target)
+
+        print(self.input_matrix, self.target_vector)
+
+    
+    def _pattern(self, x):
+
+        if x=='*':
+            return 1
+        elif x=='.':
+            return -1
 
 
     def _activate(self, y_in):
@@ -58,14 +87,14 @@ class Perceptron():
         
     
 
-    def _run_epoch(self, input_matrix, target_vector):
+    def _run_epoch(self):
         
-        assert len(input_matrix) == len(target_vector)
+        assert len(self.input_matrix) == len(self.target_vector)
 
         flag = False
 
-        for i in range(len(input_matrix)):
-            weights_updated = self._run_input(input_matrix[i], target_vector[i])
+        for i in range(len(self.input_matrix)):
+            weights_updated = self._run_input(self.input_matrix[i], self.target_vector[i])
         
             if weights_updated:
                 flag=True
@@ -79,8 +108,16 @@ class Perceptron():
 
 
     def train(self):
-        #train
-        pass
+        
+        stop_train = False
+
+        epoch = 1
+
+        while not stop_train:
+            print(epoch)
+            train = self._run_epoch()
+            stop_train = not train
+            epoch += 1
     
 
     def output_weights(self):
@@ -94,23 +131,7 @@ class Perceptron():
 
 
 if __name__ == "__main__":
-    p = Perceptron(2)
-
-    for i in range(5):
-
-        print("Epoch {}".format(i+1))
-
-        # p.output_weights()
-        p._run_input([1, 1], 1)
-
-        p.output_weights()
-        p._run_input([1, 0], 1)
-
-        p.output_weights()
-        p._run_input([0, 1], 1)
-
-        p.output_weights()
-        p._run_input([0, 0], -1)
-
-        p.output_weights()
+    p = Perceptron("Lab3/input.txt")
+    p.train()
+    p.output_weights()
     

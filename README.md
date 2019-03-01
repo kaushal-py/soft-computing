@@ -12,6 +12,27 @@ Create a simulation of the MP neuron model for AND, NAND and OR gates. [link](La
 
 ![Lab 2 output](Lab2/lab2-output.png)
 
+### Lab 3 : Perceptron Network
+Implement a Perceptron Network to recognize patterns given from a input file.  [link](Lab3/)
+
+Example Pattern
+```
+* * *
+. * .
+* * *
+Output = 1
+
+* * *
+* * *
+* . .
+Output = -1
+```
+
+The perceptron should output '1' on seeing the first pattern, and output '-1' after seeing the second pattern. 
+[Example pattern file](Lab3/pattern.txt) 
+
+![Lab 3 output](Lab3/lab3-output.png)
+
 
 
 

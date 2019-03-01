@@ -39,7 +39,7 @@ class Perceptron:
             self.input_matrix.append(input_vector)
             self.target_vector.append(target)
 
-        print(self.input_matrix, self.target_vector)
+        # print(self.input_matrix, self.target_vector)
 
         print("SUCCESS: Parsing of input successful.")
 
